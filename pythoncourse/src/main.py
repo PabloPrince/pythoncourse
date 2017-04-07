@@ -15,14 +15,21 @@ import os
 
 def main():
     RESOURCE_URL = "http://repositorio.dados.gov.br/saude/unidades-saude/unidade-basica-saude/ubs.csv.zip"
-    OUTPUT_PATH = "/home/user/pythoncurse"
-    EXTRACTED_PATH = "/home/user/" 
+
+    if os == "Windows":
+        OUTPUT_PATH = os.path.expanduser("~\saida.zip")
+        EXTRACTED_PATH = os.path.expanduser("~\\")
+    else:
+        OUTPUT_PATH = os.path.expanduser("~/saida.zip")
+        EXTRACTED_PATH = os.path.expanduser("~/")
+
     if len(sys.argv) > 1:
        RESOURCE_URL = sys.argv[1] 
     if len(sys.argv) > 2:
         OUTPUT_PATH = sys.argv[2]
     if len(sys.argv) > 3:
         EXTRACTED_PATH = sys.argv[3]
+
     response = request.urlopen(RESOURCE_URL)
     out_file = io.FileIO(OUTPUT_PATH, mode="w")
     content_length = response.getheader('Content-Length')
@@ -37,7 +44,7 @@ def main():
     filename = [name for name in os.listdir(EXTRACTED_PATH) if '.csv' in name]
     
     
-    dt = dw.read_data(EXTRACTED_PATH+filename[0])
+    dt = dw.loadlistfromcsv(EXTRACTED_PATH+filename[0])
     
     for t in dt:
         print(t) 
