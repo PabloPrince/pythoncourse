@@ -43,7 +43,7 @@ def extract_filename(filename):
     return res
     
     
-def read_data(path):
+def loadlistfromcsv(path):
     fdata = open(path, 'rt')
     data = []
     for line in fdata:
@@ -51,5 +51,13 @@ def read_data(path):
         data.append(tuple(linedata))
     fdata.close()
     return data
+
+def dicionary(data):
+  dic = {}
+
+  for x in data:
+       dic[x[2]+x[3]] = x
+  return dic
+
 
 
