@@ -53,11 +53,27 @@ def loadlistfromcsv(path):
     return data
 
 def dicionary(data):
-  dic = {}
+    dic = {}
 
-  for x in data:
+    for x in data:
        dic[x[2]+x[3]] = x
-  return dic
+    return dic
 
+def createindexfrom(source,columns_index,columns):
+    dic = {}
+    for t in source:
+        str = ""
+        for i in columns:
+            str = str + t[columns_index[i]]
+        dic[str] = t
+    return dic
+
+def interpret(line_from_source,columns_index,**kargs):
+
+    for z, c in kargs:
+        if c == "int":
+            line_from_source[columns_index[z]] = int(line_from_source[columns_index[z]])
+
+    return line_from_source
 
 
